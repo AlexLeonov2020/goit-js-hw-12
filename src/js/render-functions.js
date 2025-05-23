@@ -1,23 +1,23 @@
 
-import SimpleLightbox from "simplelightbox";
+import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 const galleryLib = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
+  captionsData: 'alt',
+  captionDelay: 250,
 });
 
 const galleryList = document.querySelector('.gallery');
-
-
-export default function createGallery(images) {
-    
-
-    const markup = images
-    console.log(images)
+export function createGallery(images) {
+  const markup = images
     .map(image => {
-       const keysToShow = ['likes', 'views', 'comments', 'downloads'];
-       const infoMarkup = keysToShow
-        .map(key =>`<p class="info-item">${capitalizeFirstLetter(key)}:<span class="info">${image[key]}</span></p>`)
+      const keysToShow = ['likes', 'views', 'comments', 'downloads'];
+      const infoMarkup = keysToShow
+        .map(
+          key =>
+            `<p class="info-item">${capitalizeFirstLetter(
+              key
+            )}:<span class="info">${image[key]}</span></p>`
+        )
         .join('');
       return `<li class="image-item">
     <a href="${image.largeImageURL}" title="${image.tags}">
@@ -35,19 +35,36 @@ export default function createGallery(images) {
   galleryLib.refresh();
 }
 
-function capitalizeFirstLetter(string){
-    if(!string){
-        return string
-    }
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+function capitalizeFirstLetter(string) {
+  if (!string) {
+    return string;
+  }
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 }
-function clearGallery() {
+export function clearGallery() {
+  galleryList.innerHTML = '';
 }
-function showLoader() {
+export function showLoader() {
+  const loader = document.querySelector('.loader');
+  if (loader) {
+    loader.style.display = 'inline-block';
+  }
 }
-function hideLoader() {   
+export function hideLoader() {
+  const loader = document.querySelector('.loader');
+  if (loader) {
+    loader.style.display = 'none';
+  }
 }
-function showLoadMoreButton() {
+export function showLoadMoreButton() {   
+     const seeMore = document.querySelector('.seeMore');
+if(seeMore){
+  seeMore.style.display = 'inline-block';
 }
-function hideLoadMoreButton() {
-} 
+}
+export function hideLoadMoreButton() {
+     const seeMore = document.querySelector('.seeMore');
+if(seeMore){
+      seeMore.style.display = 'none';
+}
+}
